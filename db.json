@@ -1,0 +1,59 @@
+{
+    "todoListItems": [
+        {
+            "id": 0,
+            "summary": "Review chapters 7",
+            "description": "" 
+        },
+        {
+            "id": 1,
+            "summary": "Vacuum the living room",
+            "description": "" 
+        },
+        {
+            "id": 2,
+            "summary": "Bake cookies on Friday afternoon",
+            "description": "" 
+        },
+        {
+            "id": 3,
+            "summary": "Put camera on charger",
+            "description": "" 
+        },
+        {
+            "id": 4,
+            "summary": "SURE Выучить React",
+            "description": "" 
+        },
+        {
+            "id": 5,
+            "summary": "AND Сделать домашку",
+            "description": "" 
+        },
+        {
+            "id": 6,
+            "summary": "Сделать JSON сервер",
+            "description": "" 
+        },
+        {
+            "id": 7,
+            "summary": "Сходить в магазин",
+            "description": "" 
+        },
+        {
+            "id": 8,
+            "summary": "Выбросить мусор",
+            "description": "" 
+        },
+        {
+            "id": 9,
+            "summary": "Убить кота",
+            "description": "" 
+        },
+        {
+            "id": 10,
+            "summary": "Оживить кота",
+            "description": "" 
+        }
+    ]
+}
