@@ -6,7 +6,7 @@ import logo from './logo.svg';
 import './App.css';
 
 // components
-import ListController from './components/ListController/ListController'
+import ListController from './components/TodoList/TodoList'
 
 function App() {
   return (

@@ -2,8 +2,10 @@
 import React, {Component} from 'react';
 // api
 import Api from '../../api/Api';
+// components
+import TodoItem from '../TodoItem/TodoItem';
 
-class ListController extends Component {
+class TodoList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,9 +24,11 @@ class ListController extends Component {
     render() {
         const { items } = this.state;
         return (
-            <ul>{ items.map(item => <li key={item.id}>{item.summary}</li>) }</ul>
+            <ul>
+                { items.map(item => <TodoItem key={item.id} summary = {item.summary} />) }
+            </ul>
         )
     }
 }
 
-export default ListController
+export default TodoList
