@@ -1,5 +1,7 @@
 // core
 import React, {Component} from 'react';
+// api
+import Api from '../../api/Api';
 
 class ListController extends Component {
     constructor(props) {
@@ -10,8 +12,7 @@ class ListController extends Component {
     }
 
     async componentDidMount() {
-        let response = await fetch('http://localhost:4000/todoListItems');
-        let items = await response.json();
+        let items = await Api.getAllItems();
 
         this.setState({
             items
@@ -19,12 +20,9 @@ class ListController extends Component {
     }
 
     render() {
+        const { items } = this.state;
         return (
-            <ul>
-                {this.state.items.map(item => 
-                    <li key={item.id}>{item.summary}</li>    
-                )}
-            </ul>
+            <ul>{ items.map(item => <li key={item.id}>{item.summary}</li>) }</ul>
         )
     }
 }
