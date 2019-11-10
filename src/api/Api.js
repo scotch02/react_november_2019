@@ -1,8 +1,116 @@
-export default class Api {
-    static #BASE_URL = "http://localhost:4000";
+const baseUrl = "http://localhost:4000/todos";
 
+export default class Api {
+/*
+curl --header "Content-Type: application/json"  --request GET http://localhost:4000/todos
+[
+  {
+    "id": 0,
+    "summary": "Review chapters 7",
+    "description": ""
+  },
+  {
+    "id": 1,
+    "summary": "Vacuum the living room",
+    "description": ""
+  },
+
+  ....
+
+]  
+*/    
     static async getAllItems() {
-        let response = await fetch(Api.#BASE_URL + "/todoListItems");
-        return await response.json();
+        const requestUrl = baseUrl;
+        try {
+            const response = await fetch(requestUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+
+            });
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
+
+/*
+curl --header "Content-Type: application/json"  --request POST --data '{"xxx": "yyyy"}' http://localhost:4000/todos
+{
+  "xxx": "yyyy",
+  "id": 12
+}
+*/
+    static async addNewItem(newItem) {
+        const requestUrl = baseUrl;
+        try {
+            const response = await fetch(requestUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+                body: JSON.stringify(newItem)
+            });
+            
+            return await response.json();    
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+/*
+curl --header "Content-Type: application/json"  --request PUT --data '{"id": 11, "xxx": "zzzz"}' http://localhost:4000/todos/11
+{
+  "id": 11,
+  "xxx": "zzzz"
+}
+*/
+    static async updateItem(item) {
+        const requestUrl = baseUrl + "/" + item.id;
+        try {
+            const response = await fetch(requestUrl, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8',
+                },
+                body: JSON.stringify(item)
+            });
+            
+            return await response.json();    
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+/*
+curl --header "Content-Type: application/json"  --request DELETE  http://localhost:4000/todos/12
+{}
+curl --header "Content-Type: application/json"  --request DELETE  http://localhost:4000/todos/12
+{}
+curl --header "Content-Type: application/json"  --request GET  http://localhost:4000/todos/12
+{}
+curl --header "Content-Type: application/json"  --request GET  http://localhost:4000/todos/11
+{
+  "id": 11
+}
+curl --request DELETE  http://localhost:4000/todos/11
+{}
+curl --request DELETE  http://localhost:4000/todos/11
+{}
+
+*/
+    static async deleteItemById(id) {
+        const requestUrl = baseUrl + "/" + id;
+        try {
+            const response = await fetch(requestUrl, {
+                method: 'DELETE'
+            });
+            
+            return await response.json();
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+
 }
