@@ -1,63 +1,157 @@
 {
   "todos": [
     {
-      "id": 0,
       "summary": "Review chapters 7",
-      "description": ""
+      "id": 0
     },
     {
-      "id": 1,
+      "isDone": true,
       "summary": "Vacuum the living room",
-      "description": ""
+      "id": 1
     },
     {
-      "id": 2,
+      "isDone": true,
       "summary": "Bake cookies on Friday afternoon",
-      "description": ""
+      "id": 2
     },
     {
-      "id": 3,
+      "isDone": true,
       "summary": "Put camera on charger",
-      "description": ""
+      "id": 3
     },
     {
-      "id": 4,
+      "isDone": true,
       "summary": "SURE Выучить React",
-      "description": ""
+      "id": 4
     },
     {
-      "id": 5,
+      "isDone": true,
       "summary": "AND Сделать домашку",
-      "description": ""
+      "id": 5
     },
     {
-      "id": 6,
+      "isDone": true,
       "summary": "Сделать JSON сервер",
-      "description": ""
+      "id": 6
     },
     {
-      "id": 7,
+      "isDone": true,
       "summary": "Сходить в магазин",
-      "description": ""
+      "id": 7
     },
     {
-      "id": 8,
+      "isDone": true,
       "summary": "Выбросить мусор",
-      "description": ""
+      "id": 8
     },
     {
-      "id": 9,
+      "isDone": true,
       "summary": "Убить кота",
-      "description": ""
+      "id": 9
     },
     {
-      "id": 10,
+      "isDone": true,
       "summary": "Оживить кота",
-      "description": ""
+      "id": 10
     },
     {
-      "id": 11,
-      "xxx": "zzzz"
+      "isDone": true,
+      "id": 11
+    },
+    {
+      "isDone": false,
+      "summary": "sfsfsfs",
+      "id": 12
+    },
+    {
+      "isDone": false,
+      "summary": "rfeee",
+      "id": 13
+    },
+    {
+      "isDone": true,
+      "summary": "rfeee",
+      "id": 14
+    },
+    {
+      "isDone": false,
+      "summary": "rfeee",
+      "id": 15
+    },
+    {
+      "isDone": false,
+      "summary": "werw",
+      "id": 16
+    },
+    {
+      "isDone": false,
+      "summary": "werw",
+      "id": 17
+    },
+    {
+      "isDone": false,
+      "summary": "dsfsfs",
+      "id": 18
+    },
+    {
+      "isDone": false,
+      "summary": "sfs",
+      "id": 19
+    },
+    {
+      "isDone": false,
+      "summary": "sasasa",
+      "id": 20
+    },
+    {
+      "isDone": false,
+      "summary": "sfsdfs",
+      "id": 21
+    },
+    {
+      "isDone": false,
+      "summary": "sfsdfs",
+      "id": 22
+    },
+    {
+      "isDone": false,
+      "summary": "sfsf",
+      "id": 23
+    },
+    {
+      "isDone": false,
+      "summary": "sfsd",
+      "id": 24
+    },
+    {
+      "isDone": false,
+      "summary": "dfgdfg",
+      "id": 25
+    },
+    {
+      "isDone": false,
+      "summary": "dgfdgdf",
+      "id": 26
+    },
+    {
+      "isDone": false,
+      "summary": "werewr",
+      "id": 27
+    },
+    {
+      "isDone": false,
+      "summary": "wrwer",
+      "id": 28
+    },
+    {
+      "isDone": false,
+      "summary": "fdgd",
+      "id": 29
+    },
+    {
+      "isDone": false,
+      "summary": "sfgdg",
+      "id": 30
     }
   ]
 }

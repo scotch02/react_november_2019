@@ -5,14 +5,14 @@ import React from 'react';
 import './App.css';
 
 // components
-import ListController from './components/TodoList/TodoList'
+import TodoList from './components/TodoList/TodoList';
 
 function App() {
   return (
-    <>
+    <div>
       <header />
-      <ListController />
-    </>
+      <TodoList />
+    </div>
   );
 }
 
