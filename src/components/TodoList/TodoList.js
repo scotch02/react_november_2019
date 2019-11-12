@@ -15,56 +15,81 @@ class TodoList extends Component {
 
         this.addNewItem = this.addNewItem.bind(this);
         this.updateItem = this.updateItem.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
     }
 
-    addNewItem(newItem) {
-        this.setState(state => ({
-            items: [...state.items, newItem]
-        }));
+    async addNewItem(newItemDefinition) {
+        try {
+            const newItem = await Api.addNewItem(newItemDefinition);
+            this.setState(state => ({
+                items: [...state.items, newItem]
+            }));
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
-    updateItem(updated) {
-        this.setState(state => {
-            const { items } = state;
-            const idx = items.findIndex(item => item.id === updated.id);
+    async deleteItem(id) {
+        try {
+            await Api.deleteItemById(id);
 
-            if(idx !== -1) {
-
-                const newItems = [...items];
-                newItems[idx] = updated;
+            this.setState(state => {
+                const { items } = state;
+                const newItems = items.filter(item => item.id !== id);
 
                 return {
                     items: newItems
                 }
-            } else {
-                return state;
-            }
-        });
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    async updateItem(mutated) {
+        try {
+            const updated = await Api.updateItem(mutated);
+
+            this.setState(state => {
+                const { items } = state;
+                const idx = items.findIndex(item => item.id === updated.id);
+
+                if(idx !== -1) {
+
+                    const newItems = [...items];
+                    newItems[idx] = updated;
+
+                    return {
+                        items: newItems
+                    }
+                } else {
+                    return state;
+                }
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     async componentDidMount() {
-        let items = await Api.getAllItems();
+        try {
+            const items = await Api.getAllItems();
 
-        this.setState({
-            items
-        });
+            this.setState({
+                items
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     render() {
         const { items } = this.state;
         return (
             <>
-                <TodoAppender handleNewItem = {this.addNewItem}/>
+                <TodoAppender handleNewItem={this.addNewItem} />
                 <ul>
-                    { items.map(item => (
-                        <TodoItem 
-                            key={item.id} 
-                            summary={item.summary} 
-                            id={item.id}
-                            isDone={item.isDone} 
-                            handleUpdateItem={this.updateItem}
-                        />
-                        )) }
+                    { items.map(item => <TodoItem key={item.id} item={item} handleUpdate={this.updateItem} handleDelete={this.deleteItem}/>) }
                 </ul>
             </>
         )

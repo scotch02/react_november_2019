@@ -1,23 +1,24 @@
 import React, {useRef} from 'react';
-import Api from '../../api/Api';
 
 export default function TodoAppender(props) {
     const inputEl = useRef(null);
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        const newItem = await Api.addNewItem({
+
+        const newItemDefinition = {
             isDone: false,
             summary: inputEl.current.value
-        });
+        };
+
         inputEl.current.value = "";
-        props.handleNewItem(newItem);
+        props.handleNewItem(newItemDefinition);
     };
 
     return (
         <form onSubmit = {handleSubmit}>
             <input ref={inputEl} type = "text" />
-            <input type = "submit" value = "submit" />
+            <input type = "submit" value = "add todo" />
         </form>
     )
 }

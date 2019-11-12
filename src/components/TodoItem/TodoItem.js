@@ -1,46 +1,65 @@
-import React, {Component} from 'react';
-import Api from '../../api/Api';
+import React from 'react';
 
-export default class TodoItem extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            checked: props.isDone
-        };
+export default function TodoItem(props) {
 
-        this.handleChange = this.handleChange.bind(this);
-    }
+    const handleChange = async () => {
+        const { item, handleUpdate } = props;
+        const itemCopy = {...item};
+        itemCopy.isDone = !item.isDone;
+        handleUpdate(itemCopy);
+    };
 
-    async handleChange(event) {
-        const checked = event.target.checked;
-        this.setState({checked: checked});
+    const handleDeleteItem = async () => {
+        const { item, handleDelete } = props;
+        handleDelete(item.id);
+    };
 
-        const { summary, id, handleUpdateItem } = this.props;
+    const handleEditItem = () => {
 
-        const updated = await Api.updateItem({
-            isDone: checked,
-            summary: summary,
-            id: id
-        });
+    };
 
-        handleUpdateItem(updated);
-    }
+    const handleSaveItem = () => {
 
-    render() {
-        const { summary } = this.props;    
-        const { checked } = this.state;
-        const style = checked ? {textDecoration: "line-through"} : {};
+    };
 
+    const { summary, isDone } = props.item;    
+    const style = isDone ? {textDecoration: "line-through"} : {};
+
+    return (
+        <li>
+            <form style={style}>
+                <input type='checkbox' checked={ isDone } onChange={ handleChange }/>
+                <EditableText text={ summary } />
+                <EditOrSaveButton handleEdit={ handleEditItem } handleSave={handleSaveItem} mode='save'/>
+                <input type='button' value='delete' onClick={ handleDeleteItem } />
+            </form>
+        </li>
+    ); 
+}
+
+function EditableText(props) {
+    const { text, editable} = props;
+    if(editable) {
         return (
-            
-            <li>
-                <form style={style}>
-                    <input type='checkbox' checked={this.state.checked} onChange={this.handleChange}/>
-                    {summary}
-                </form>
-            </li>
-        );
-
+            <input type="text" value={text} />    
+        )
+    } else {
+        return (
+            <>{text}</>    
+        )
     }
- 
+}
+
+function EditOrSaveButton(props) {
+    const {mode = 'edit', handleEdit, handleSave } = props;
+    if(mode === 'edit') {
+        return (
+            <input type='button' value='edit' onClick={ handleEdit } />
+        )
+    }
+    if(mode === 'save') {
+        return (
+            <input type='button' value='save' onClick={ handleSave } />
+        )
+    }    
 }

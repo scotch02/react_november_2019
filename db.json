@@ -1,15 +1,6 @@
 {
   "todos": [
     {
-      "summary": "Review chapters 7",
-      "id": 0
-    },
-    {
-      "isDone": true,
-      "summary": "Vacuum the living room",
-      "id": 1
-    },
-    {
       "isDone": true,
       "summary": "Bake cookies on Friday afternoon",
       "id": 2
@@ -40,26 +31,22 @@
       "id": 7
     },
     {
-      "isDone": true,
+      "isDone": false,
       "summary": "Выбросить мусор",
       "id": 8
     },
     {
-      "isDone": true,
+      "isDone": false,
       "summary": "Убить кота",
       "id": 9
     },
     {
-      "isDone": true,
+      "isDone": false,
       "summary": "Оживить кота",
       "id": 10
     },
     {
       "isDone": true,
-      "id": 11
-    },
-    {
-      "isDone": false,
       "summary": "sfsfsfs",
       "id": 12
     },
@@ -74,7 +61,7 @@
       "id": 14
     },
     {
-      "isDone": false,
+      "isDone": true,
       "summary": "rfeee",
       "id": 15
     },
@@ -89,7 +76,7 @@
       "id": 17
     },
     {
-      "isDone": false,
+      "isDone": true,
       "summary": "dsfsfs",
       "id": 18
     },
@@ -100,16 +87,11 @@
     },
     {
       "isDone": false,
-      "summary": "sasasa",
-      "id": 20
-    },
-    {
-      "isDone": false,
       "summary": "sfsdfs",
       "id": 21
     },
     {
-      "isDone": false,
+      "isDone": true,
       "summary": "sfsdfs",
       "id": 22
     },
@@ -117,11 +99,6 @@
       "isDone": false,
       "summary": "sfsf",
       "id": 23
-    },
-    {
-      "isDone": false,
-      "summary": "sfsd",
-      "id": 24
     },
     {
       "isDone": false,
@@ -145,13 +122,18 @@
     },
     {
       "isDone": false,
-      "summary": "fdgd",
-      "id": 29
+      "summary": "sfgdg",
+      "id": 30
     },
     {
       "isDone": false,
-      "summary": "sfgdg",
-      "id": 30
+      "summary": "dgdgdf",
+      "id": 31
+    },
+    {
+      "isDone": false,
+      "summary": "fsdfs",
+      "id": 32
     }
   ]
 }
