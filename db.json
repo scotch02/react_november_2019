@@ -1,17 +1,12 @@
 {
   "todos": [
     {
-      "isDone": true,
-      "summary": "Bake cookies on Friday afternoon",
-      "id": 2
-    },
-    {
-      "isDone": true,
-      "summary": "Put camera on charger",
+      "isDone": false,
+      "summary": "Put camerasfs osfdsn charger",
       "id": 3
     },
     {
-      "isDone": true,
+      "isDone": false,
       "summary": "SURE Выучить React",
       "id": 4
     },
@@ -31,7 +26,7 @@
       "id": 7
     },
     {
-      "isDone": true,
+      "isDone": false,
       "summary": "Убить кота",
       "id": 9
     },
@@ -109,6 +104,16 @@
       "isDone": false,
       "summary": "sfgdg",
       "id": 30
+    },
+    {
+      "isDone": false,
+      "summary": "sfsdfds111",
+      "id": 31
+    },
+    {
+      "isDone": false,
+      "summary": "cbcb",
+      "id": 32
     }
   ]
 }

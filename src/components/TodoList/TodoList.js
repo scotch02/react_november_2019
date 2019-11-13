@@ -5,6 +5,8 @@ import Api from '../../api/Api';
 // components
 import TodoItem from '../TodoItem/TodoItem';
 import TodoAppender from '../TodoAppender/TodoAppender';
+// material-ui
+import List from '@material-ui/core/List';
 
 class TodoList extends Component {
     constructor(props) {
@@ -88,9 +90,9 @@ class TodoList extends Component {
         return (
             <>
                 <TodoAppender handleNewItem={this.addNewItem} />
-                <ul>
+                <List>
                     { items.map(item => <TodoItem key={item.id} item={item} handleUpdate={this.updateItem} handleDelete={this.deleteItem}/>) }
-                </ul>
+                </List>
             </>
         )
     }

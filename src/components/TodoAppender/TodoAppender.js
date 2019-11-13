@@ -1,4 +1,8 @@
+// core
 import React, {useRef} from 'react';
+// material-ui
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 export default function TodoAppender(props) {
     const inputEl = useRef(null);
@@ -17,8 +21,14 @@ export default function TodoAppender(props) {
 
     return (
         <form onSubmit = {handleSubmit}>
-            <input ref={inputEl} type = "text" />
-            <input type = "submit" value = "add todo" />
+            <TextField 
+                inputRef={ inputEl } 
+                margin="normal"
+                variant="outlined"
+            />
+            <Button type="submit" variant="contained" color="primary">
+                Add todo
+            </Button>    
         </form>
     )
 }

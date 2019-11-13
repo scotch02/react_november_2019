@@ -1,4 +1,10 @@
+// core
 import React, { useState, useRef } from 'react';
+// material-ui
+import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import ListItem from '@material-ui/core/ListItem';
 
 export default function TodoItem(props) {
 
@@ -41,31 +47,40 @@ export default function TodoItem(props) {
     if(editable) {
         editableText = (
             <>
-                <input type='checkbox' checked={ isDone } onChange={ handleIsDone }/> 
-                <input ref={ inputEl } type="text" defaultValue={ summary } /> 
+                <Checkbox 
+                    checked={ isDone } 
+                    onChange={ handleIsDone }
+                /> 
+                <TextField 
+                    inputRef={ inputEl } 
+                    defaultValue={ summary } 
+                    margin="normal"
+                /> 
             </>
         );
     } else {
         editableText = (
-            <label>
-                <input type='checkbox' checked={ isDone } onChange={ handleIsDone }/> 
+            <label style={style}>
+                <Checkbox checked={ isDone } onChange={ handleIsDone }/> 
                 { summary }
             </label> 
         );
     }
  
     return (
-        <li>
-            <form style={style}>
+        <ListItem>
+            <form>
                 {editableText}
                 <Buttons editable={ editable }
                     handleEdit={ handleEditItem } 
                     handleSave={ handleSaveItem } 
                     handleCancel ={ handleCancelEdit } 
                 />
-                <input type='button' value='delete' onClick={ handleDeleteItem } />
+                <Button variant="outlined" color="primary" onClick={ handleDeleteItem }>
+                    Delete
+                </Button>
             </form>
-        </li>
+        </ListItem>
     ); 
 }
 
@@ -74,13 +89,19 @@ function Buttons(props) {
     if(editable) {
         return (
             <>
-                <input type='button' value='save' onClick={ handleSave } />
-                <input type='button' value='cancel' onClick={ handleCancel } />
+                <Button variant="outlined" color="primary" onClick={ handleSave }>
+                    Save
+                </Button>
+                <Button variant="outlined" color="secondary" onClick={ handleCancel }>
+                    Cancel
+                </Button>    
             </>
         )
     } else  {
         return (
-            <input type='button' value='edit' onClick={ handleEdit } />
+            <Button variant="outlined" color="primary" onClick={ handleEdit }>
+                Edit
+            </Button>    
         )
     }
 }

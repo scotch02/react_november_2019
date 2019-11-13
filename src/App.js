@@ -2,7 +2,9 @@
 import React from 'react';
 
 // style
+import 'typeface-roboto';
 import './App.css';
+
 
 // components
 import TodoList from './components/TodoList/TodoList';
