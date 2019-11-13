@@ -31,19 +31,9 @@
       "id": 7
     },
     {
-      "isDone": false,
-      "summary": "Выбросить мусор",
-      "id": 8
-    },
-    {
-      "isDone": false,
+      "isDone": true,
       "summary": "Убить кота",
       "id": 9
-    },
-    {
-      "isDone": false,
-      "summary": "Оживить кота",
-      "id": 10
     },
     {
       "isDone": true,
@@ -102,16 +92,11 @@
     },
     {
       "isDone": false,
-      "summary": "dfgdfg",
-      "id": 25
-    },
-    {
-      "isDone": false,
       "summary": "dgfdgdf",
       "id": 26
     },
     {
-      "isDone": false,
+      "isDone": true,
       "summary": "werewr",
       "id": 27
     },
@@ -124,16 +109,6 @@
       "isDone": false,
       "summary": "sfgdg",
       "id": 30
-    },
-    {
-      "isDone": false,
-      "summary": "dgdgdf",
-      "id": 31
-    },
-    {
-      "isDone": false,
-      "summary": "fsdfs",
-      "id": 32
     }
   ]
 }
