@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import theme from './theme';
+  
+
 // material-ui
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 ReactDOM.render((
-        <ThemeProvider>
+        <ThemeProvider theme={theme}>
             <CssBaseline />
             <App />
         </ThemeProvider>

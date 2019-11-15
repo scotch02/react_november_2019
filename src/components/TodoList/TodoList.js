@@ -73,9 +73,9 @@ class TodoList extends Component {
         }
     }
 
-    async componentDidMount() {
+    async getAll(filter) {
         try {
-            const items = await Api.getAllItems();
+            const items = await Api.getItems(filter);
 
             this.setState({
                 items
@@ -83,6 +83,11 @@ class TodoList extends Component {
         } catch (error) {
             console.error('Error:', error);
         }
+    }
+
+    async componentDidMount() {
+        const { filter } = this.props;
+        await this.getAll(filter);
     }
 
     render() {
