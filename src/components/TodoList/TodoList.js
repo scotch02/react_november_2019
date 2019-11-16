@@ -20,6 +20,11 @@ class TodoList extends Component {
         this.deleteItem = this.deleteItem.bind(this);
     }
 
+    componentDidMount() {
+        const { filter } = this.props;
+        this.getItems(filter);
+    }
+
     async addNewItem(newItemDefinition) {
         try {
             const newItem = await Api.addNewItem(newItemDefinition);
@@ -73,7 +78,7 @@ class TodoList extends Component {
         }
     }
 
-    async getAll(filter) {
+    async getItems(filter) {
         try {
             const items = await Api.getItems(filter);
 
@@ -83,11 +88,6 @@ class TodoList extends Component {
         } catch (error) {
             console.error('Error:', error);
         }
-    }
-
-    async componentDidMount() {
-        const { filter } = this.props;
-        await this.getAll(filter);
     }
 
     render() {
