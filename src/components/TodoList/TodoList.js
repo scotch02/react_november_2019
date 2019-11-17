@@ -8,7 +8,8 @@ import TodoAppender from '../TodoAppender/TodoAppender';
 // material-ui
 import List from '@material-ui/core/List';
 
-class TodoList extends Component {
+export default class TodoList extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -102,5 +103,3 @@ class TodoList extends Component {
         )
     }
 }
-
-export default TodoList
