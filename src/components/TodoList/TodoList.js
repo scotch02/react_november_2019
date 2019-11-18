@@ -25,12 +25,12 @@ class TodoList extends Component {
         this.updateItem = this.updateItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
     }
-/*
+
     componentDidMount() {
         const { filter } = this.props;
         this.getItems(filter);
     }
-*/
+
     async addNewItem(newItemDefinition) {
         const { dispatch } = this.props; 
         try {
@@ -60,21 +60,17 @@ class TodoList extends Component {
             console.error('Error:', error);
         }
     }
-/*
+
     async getItems(filter) {
         const { dispatch } = this.props;
         try {
             const items = await Api.getItems(filter);
             items.forEach(item => dispatch(addTodo(item)))
-
-//            this.setState({
-//                items
-//            });
         } catch (error) {
             console.error('Error:', error);
         }
     }
-*/
+
     render() {
         const { todos: items } = this.props;
 
