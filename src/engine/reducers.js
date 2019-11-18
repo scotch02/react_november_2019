@@ -23,13 +23,9 @@ function todoReducer(state = [], action) {
             const idx = items.findIndex(item => item.id === action.payload.id);
 
             if(idx !== -1) {
-
                 const newItems = [...items];
                 newItems[idx] = action.payload;
-
-                return {
-                    items: newItems
-                }
+                return  newItems
             } else {
                 return state;
             }

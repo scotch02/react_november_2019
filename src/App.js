@@ -1,7 +1,6 @@
 // core
 import React from 'react';
 
-
 import {
   BrowserRouter as Router,
   Switch,
@@ -21,25 +20,12 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import combinedReducer from './engine/reducers'
 
-import Api from './api/Api';
-
-
-
-
-
-
+const store = createStore(
+  combinedReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()  
+);
 
 export default function App() {
-  Api.getItems()
-  .then(items => ({todos: items}))
-  .then(initState => {
-
-  const store = createStore(
-    combinedReducer, initState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()  
-  );
-  
-
   return (
     <Provider store={store}>
     <Router>
@@ -73,7 +59,4 @@ export default function App() {
     </Router>
     </Provider>
   );
-
-
-})
 }
