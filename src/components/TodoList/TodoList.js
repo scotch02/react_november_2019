@@ -8,7 +8,15 @@ import TodoAppender from '../TodoAppender/TodoAppender';
 // material-ui
 import List from '@material-ui/core/List';
 
-export default class TodoList extends Component {
+import { connect } from 'react-redux'
+import { 
+    addTodo,
+    deleteTodo,
+    updateTodo 
+} from '../../engine/actions'
+
+
+class TodoList extends Component {
 
     constructor(props) {
         super(props);
@@ -20,79 +28,88 @@ export default class TodoList extends Component {
         this.updateItem = this.updateItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
     }
-
+/*
     componentDidMount() {
         const { filter } = this.props;
         this.getItems(filter);
     }
-
+*/
     async addNewItem(newItemDefinition) {
+        const { dispatch } = this.props; 
         try {
             const newItem = await Api.addNewItem(newItemDefinition);
-            this.setState(state => ({
-                items: [...state.items, newItem]
-            }));
+            dispatch(addTodo(newItem));
+//            this.setState(state => ({
+//                items: [...state.items, newItem]
+//            }));
         } catch (error) {
             console.error('Error:', error);
         }
     }
 
     async deleteItem(id) {
+        const { dispatch } = this.props;
         try {
             await Api.deleteItemById(id);
+            dispatch(deleteTodo(id));
 
-            this.setState(state => {
-                const { items } = state;
-                const newItems = items.filter(item => item.id !== id);
-
-                return {
-                    items: newItems
-                }
-            });
+//            this.setState(state => {
+//                const { items } = state;
+//                const newItems = items.filter(item => item.id !== id);
+//
+//                return {
+//                    items: newItems
+//                }
+//            });
         } catch (error) {
             console.error('Error:', error);
         }
     }
 
     async updateItem(mutated) {
+        const { dispatch } = this.props;
         try {
             const updated = await Api.updateItem(mutated);
+            dispatch(updateTodo(updated));
 
-            this.setState(state => {
-                const { items } = state;
-                const idx = items.findIndex(item => item.id === updated.id);
-
-                if(idx !== -1) {
-
-                    const newItems = [...items];
-                    newItems[idx] = updated;
-
-                    return {
-                        items: newItems
-                    }
-                } else {
-                    return state;
-                }
-            });
+//            this.setState(state => {
+//                const { items } = state;
+//                const idx = items.findIndex(item => item.id === updated.id);
+//
+//                if(idx !== -1) {
+//
+//                    const newItems = [...items];
+//                    newItems[idx] = updated;
+//
+//                    return {
+//                        items: newItems
+//                    }
+//                } else {
+//                    return state;
+//                }
+//            });
         } catch (error) {
             console.error('Error:', error);
         }
     }
-
+/*
     async getItems(filter) {
+        const { dispatch } = this.props;
         try {
             const items = await Api.getItems(filter);
+            items.forEach(item => dispatch(addTodo(item)))
 
-            this.setState({
-                items
-            });
+//            this.setState({
+//                items
+//            });
         } catch (error) {
             console.error('Error:', error);
         }
     }
-
+*/
     render() {
-        const { items } = this.state;
+        const { items } = this.props.todos;
+        if(items) {
         return (
             <>
                 <TodoAppender handleNewItem={this.addNewItem} />
@@ -101,5 +118,15 @@ export default class TodoList extends Component {
                 </List>
             </>
         )
+        }
+        return null;
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+      todos: state.todos
+    }
+}
+
+export default connect(mapStateToProps)(TodoList);

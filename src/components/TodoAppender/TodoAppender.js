@@ -7,6 +7,8 @@ import TextField from '@material-ui/core/TextField';
 export default function TodoAppender(props) {
     const inputEl = useRef(null);
 
+    const { handleNewItem } = props;
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -16,7 +18,7 @@ export default function TodoAppender(props) {
         };
 
         inputEl.current.value = "";
-        props.handleNewItem(newItemDefinition);
+        handleNewItem(newItemDefinition);
     };
 
     return (
