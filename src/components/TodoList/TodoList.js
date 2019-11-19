@@ -16,24 +16,12 @@ import {
 
 function TodoList(props) {
 
-    const { filter, dispatch } = props;
+    const { filter, getItems, todos: items } = props;
 
     useEffect(() => {
-        async function getItems(filter) {
-            try {
-                const items = await Api.getItems(filter);
-                dispatch(loadInitialTodoList(items));
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
         getItems(filter);
-    }, [filter, dispatch]);
+    }, [filter, getItems]);
     
-
-    const { todos: items } = props;
-
     return (
         <>
             <TodoAppender />
@@ -50,4 +38,17 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(TodoList);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getItems: async (filter) => {
+            try {
+                const items = await Api.getItems(filter);
+                dispatch(loadInitialTodoList(items));
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }    
+    }    
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

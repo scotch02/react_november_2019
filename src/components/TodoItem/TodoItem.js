@@ -21,17 +21,17 @@ function TodoItem(props) {
     const [editable, setEditable] = useState(false);
     const inputEl = useRef(null);
 
-    const handleIsDone = async () => {
+    const { item, handleUpdate, handleDelete } = props;
+
+    const handleIsDone = () => {
         setEditable(false);
-        const { item, handleUpdate } = props;
         const itemCopy = {...item};
         itemCopy.isDone = !item.isDone;
-        updateItem(itemCopy);
+        handleUpdate(itemCopy);
     };
 
-    const handleDeleteItem = async () => {
-        const { item, handleDelete } = props;
-        deleteItem(item.id);
+    const handleDeleteItem = () => {
+        handleDelete(item.id);
     };
 
     const handleEditItem = () => {
@@ -39,33 +39,11 @@ function TodoItem(props) {
     };
 
     const handleSaveItem = () => {
-        const { item, handleUpdate } = props;
         const itemCopy = {...item};
         itemCopy.summary = inputEl.current.value;
-        updateItem(itemCopy);
+        handleUpdate(itemCopy);
         setEditable(false);
     };
-
-    async function deleteItem(id) {
-        const { dispatch } = props;
-        try {
-            await Api.deleteItemById(id);
-            dispatch(deleteTodo(id));
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
-
-    async function updateItem(mutated) {
-        const { dispatch } = props;
-        try {
-            const updated = await Api.updateItem(mutated);
-            dispatch(updateTodo(updated));
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
-
 
     const handleCancelEdit = () => {
         setEditable(false);
@@ -143,4 +121,25 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(TodoItem);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleUpdate: async (mutated) => {
+            try {
+                const updated = await Api.updateItem(mutated);
+                dispatch(updateTodo(updated));
+            } catch (error) {
+                console.error('Error:', error);
+            }    
+        },
+        handleDelete: async (id) => {
+            try {
+                await Api.deleteItemById(id);
+                dispatch(deleteTodo(id));
+            } catch (error) {
+                console.error('Error:', error);
+            }    
+        }   
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);

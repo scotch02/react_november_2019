@@ -14,6 +14,7 @@ import {
 function TodoAppender(props) {
     const inputEl = useRef(null);
 
+    const {addNewItem} = props;
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -26,16 +27,6 @@ function TodoAppender(props) {
         inputEl.current.value = "";
         addNewItem(newItemDefinition);
     };
-
-    async function addNewItem(newItemDefinition) {
-        const { dispatch } = props; 
-        try {
-            const newItem = await Api.addNewItem(newItemDefinition);
-            dispatch(addTodo(newItem));
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    }
 
     return (
         <form onSubmit = {handleSubmit}>
@@ -57,4 +48,17 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(TodoAppender);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addNewItem: async (newItemDefinition) => {
+            try {
+                const newItem = await Api.addNewItem(newItemDefinition);
+                dispatch(addTodo(newItem));
+            } catch (error) {
+                console.error('Error:', error);
+            }    
+        }    
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoAppender);
