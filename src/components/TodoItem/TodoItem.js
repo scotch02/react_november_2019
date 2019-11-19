@@ -6,7 +6,17 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import ListItem from '@material-ui/core/ListItem';
 
-export default function TodoItem(props) {
+// api
+import Api from '../../api/Api';
+
+import { connect } from 'react-redux'
+import { 
+    deleteTodo,
+    updateTodo, 
+} from '../../engine/actions'
+
+
+function TodoItem(props) {
 
     const [editable, setEditable] = useState(false);
     const inputEl = useRef(null);
@@ -16,12 +26,12 @@ export default function TodoItem(props) {
         const { item, handleUpdate } = props;
         const itemCopy = {...item};
         itemCopy.isDone = !item.isDone;
-        handleUpdate(itemCopy);
+        updateItem(itemCopy);
     };
 
     const handleDeleteItem = async () => {
         const { item, handleDelete } = props;
-        handleDelete(item.id);
+        deleteItem(item.id);
     };
 
     const handleEditItem = () => {
@@ -32,9 +42,30 @@ export default function TodoItem(props) {
         const { item, handleUpdate } = props;
         const itemCopy = {...item};
         itemCopy.summary = inputEl.current.value;
-        handleUpdate(itemCopy);
+        updateItem(itemCopy);
         setEditable(false);
     };
+
+    async function deleteItem(id) {
+        const { dispatch } = props;
+        try {
+            await Api.deleteItemById(id);
+            dispatch(deleteTodo(id));
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    async function updateItem(mutated) {
+        const { dispatch } = props;
+        try {
+            const updated = await Api.updateItem(mutated);
+            dispatch(updateTodo(updated));
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
 
     const handleCancelEdit = () => {
         setEditable(false);
@@ -105,3 +136,11 @@ function Buttons(props) {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+      todos: state.todos
+    }
+}
+
+export default connect(mapStateToProps)(TodoItem);

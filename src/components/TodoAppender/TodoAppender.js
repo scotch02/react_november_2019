@@ -3,11 +3,17 @@ import React, {useRef} from 'react';
 // material-ui
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+// api
+import Api from '../../api/Api';
 
-export default function TodoAppender(props) {
+import { connect } from 'react-redux'
+import { 
+    addTodo,
+} from '../../engine/actions'
+
+function TodoAppender(props) {
     const inputEl = useRef(null);
 
-    const { handleNewItem } = props;
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -18,8 +24,18 @@ export default function TodoAppender(props) {
         };
 
         inputEl.current.value = "";
-        handleNewItem(newItemDefinition);
+        addNewItem(newItemDefinition);
     };
+
+    async function addNewItem(newItemDefinition) {
+        const { dispatch } = props; 
+        try {
+            const newItem = await Api.addNewItem(newItemDefinition);
+            dispatch(addTodo(newItem));
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
     return (
         <form onSubmit = {handleSubmit}>
@@ -34,3 +50,11 @@ export default function TodoAppender(props) {
         </form>
     )
 }
+
+const mapStateToProps = (state) => {
+    return {
+      todos: state.todos
+    }
+}
+
+export default connect(mapStateToProps)(TodoAppender);
