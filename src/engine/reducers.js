@@ -2,7 +2,8 @@ import { combineReducers } from 'redux'
 import {
   ADD_TODO,
   DELETE_TODO,
-  UPDATE_TODO
+  UPDATE_TODO,
+  LOAD_INITIAL_TODO_LIST
 } from './actions'
 
 
@@ -29,6 +30,9 @@ function todoReducer(state = [], action) {
             } else {
                 return state;
             }
+
+        case LOAD_INITIAL_TODO_LIST:
+            return action.payload;
 
         default:
             return state

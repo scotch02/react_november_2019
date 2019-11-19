@@ -12,7 +12,8 @@ import { connect } from 'react-redux'
 import { 
     addTodo,
     deleteTodo,
-    updateTodo 
+    updateTodo, 
+    loadInitialTodoList
 } from '../../engine/actions'
 
 
@@ -65,7 +66,7 @@ class TodoList extends Component {
         const { dispatch } = this.props;
         try {
             const items = await Api.getItems(filter);
-            items.forEach(item => dispatch(addTodo(item)))
+            dispatch(loadInitialTodoList(items));
         } catch (error) {
             console.error('Error:', error);
         }
