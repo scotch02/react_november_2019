@@ -1,31 +1,58 @@
-// core
 import React, { useState, useRef } from 'react';
-// material-ui
-import Checkbox from '@material-ui/core/Checkbox';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+
 import ListItem from '@material-ui/core/ListItem';
+import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
+
 
 // api
 import Api from '../../api/Api';
 
 import { connect } from 'react-redux'
-import { 
+import {
     deleteTodo,
-    updateTodo, 
+    updateTodo,
 } from '../../engine/actions'
 
 
-function TodoItem(props) {
 
-    const [editable, setEditable] = useState(false);
+
+const useStyles = makeStyles({
+    card: {
+        minWidth: 275,
+    },
+    bullet: {
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
+    },
+    title: {
+        fontSize: 14,
+    },
+    pos: {
+        marginBottom: 12,
+    },
+});
+
+function TodoItem(props) {
+    const { item, handleUpdate, handleDelete } = props;
+
+    const { summary, isDone } = item;
+
     const inputEl = useRef(null);
 
-    const { item, handleUpdate, handleDelete } = props;
+    const classes = useStyles();
+    const [editable, setEditable] = useState(false);
 
     const handleIsDone = () => {
         setEditable(false);
-        const itemCopy = {...item};
+        const itemCopy = { ...item };
         itemCopy.isDone = !item.isDone;
         handleUpdate(itemCopy);
     };
@@ -39,7 +66,7 @@ function TodoItem(props) {
     };
 
     const handleSaveItem = () => {
-        const itemCopy = {...item};
+        const itemCopy = { ...item };
         itemCopy.summary = inputEl.current.value;
         handleUpdate(itemCopy);
         setEditable(false);
@@ -49,75 +76,88 @@ function TodoItem(props) {
         setEditable(false);
     }
 
-    const { summary, isDone } = props.item;    
-    const style = isDone ? {textDecoration: "line-through"} : {};
+
+    const style = isDone ? { textDecoration: "line-through" } : {};
 
     let editableText;
-    if(editable) {
+
+    if (editable) {
         editableText = (
-            <>
-                <Checkbox 
-                    checked={ isDone } 
-                    onChange={ handleIsDone }
-                /> 
-                <TextField 
-                    inputRef={ inputEl } 
-                    defaultValue={ summary } 
-                    margin="normal"
-                /> 
-            </>
+            <TextField
+                inputRef={inputEl}
+                defaultValue={summary}
+                margin="normal"
+            />
         );
     } else {
         editableText = (
-            <label style={style}>
-                <Checkbox checked={ isDone } onChange={ handleIsDone }/> 
-                { summary }
-            </label> 
+            <Typography variant="h5" component="h2">
+                {summary}
+            </Typography>
         );
     }
- 
+
+
     return (
         <ListItem>
-            <form>
-                {editableText}
-                <Buttons editable={ editable }
-                    handleEdit={ handleEditItem } 
-                    handleSave={ handleSaveItem } 
-                    handleCancel ={ handleCancelEdit } 
-                />
-                <Button variant="outlined" color="primary" onClick={ handleDeleteItem }>
-                    Delete
-                </Button>
-            </form>
+            <Card className={classes.card}>
+                <CardContent>
+                    <Typography className={classes.title} color="textSecondary" gutterBottom>
+                        Summary
+                    </Typography>
+                    {editableText}
+                </CardContent>
+                <CardActions>
+                    <label style={style}>
+                        <Typography className={classes.pos} color="textSecondary">
+                            completed
+                        </Typography>
+                        <Checkbox checked={isDone} onChange={handleIsDone} />
+                    </label>
+                </CardActions>
+                <CardActions>
+                    <Buttons editable={editable}
+                        handleEdit={handleEditItem}
+                        handleSave={handleSaveItem}
+                        handleCancel={handleCancelEdit}
+                        handleDelete={handleDeleteItem}
+                    />
+                </CardActions>
+            </Card>
         </ListItem>
-    ); 
+    );
 }
 
 function Buttons(props) {
-    const { editable, handleEdit, handleSave, handleCancel } = props;
-    if(editable) {
+    const { editable, handleEdit, handleSave, handleCancel, handleDelete } = props;
+    if (editable) {
         return (
             <>
-                <Button variant="outlined" color="primary" onClick={ handleSave }>
+                <Button color="primary" size="small" onClick={handleSave}>
                     Save
                 </Button>
-                <Button variant="outlined" color="secondary" onClick={ handleCancel }>
+                <Button color="secondary" size="small" onClick={handleCancel}>
                     Cancel
-                </Button>    
+                </Button>
             </>
         )
-    } else  {
+    } else {
         return (
-            <Button variant="outlined" color="primary" onClick={ handleEdit }>
-                Edit
-            </Button>    
+            <>
+                <Button color="primary" size="small" onClick={handleEdit}>
+                    Edit
+                </Button>
+                <Button color="primary" size="small" onClick={handleDelete}>
+                    Delete
+                </Button>
+            </>
         )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-      todos: state.todos
+        todos: state.todos
     }
 }
 
@@ -129,7 +169,7 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(updateTodo(updated));
             } catch (error) {
                 console.error('Error:', error);
-            }    
+            }
         },
         handleDelete: async (id) => {
             try {
@@ -137,8 +177,8 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(deleteTodo(id));
             } catch (error) {
                 console.error('Error:', error);
-            }    
-        }   
+            }
+        }
     }
 }
 

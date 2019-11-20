@@ -9,9 +9,11 @@ import TodoAppender from '../TodoAppender/TodoAppender';
 import List from '@material-ui/core/List';
 
 import { connect } from 'react-redux'
-import { 
+import {
     loadInitialTodoList
 } from '../../engine/actions'
+
+import Box from '@material-ui/core/Box';
 
 
 function TodoList(props) {
@@ -21,20 +23,22 @@ function TodoList(props) {
     useEffect(() => {
         getItems(filter);
     }, [filter, getItems]);
-    
+
     return (
         <>
             <TodoAppender />
-            <List>
-                { items.map(item => <TodoItem key={item.id} item={item} />) }
-            </List>
+            <Box>
+                <List>
+                    {items.map(item => <TodoItem key={item.id} item={item} />)}
+                </List>
+            </Box>
         </>
     )
 }
 
 const mapStateToProps = (state) => {
     return {
-      todos: state.todos
+        todos: state.todos
     }
 }
 
@@ -47,8 +51,8 @@ const mapDispatchToProps = (dispatch) => {
             } catch (error) {
                 console.error('Error:', error);
             }
-        }    
-    }    
+        }
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

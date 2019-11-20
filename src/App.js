@@ -20,6 +20,9 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import combinedReducer from './engine/reducers'
 
+import ButtonAppBar from './components/ButtonAppBar/ButtonAppBar';
+import SimpleBottomNavigation from './components/SimpleBottomNavigation/SimpleBottomNavigation'
+
 const store = createStore(
   combinedReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()  
@@ -28,6 +31,10 @@ const store = createStore(
 export default function App() {
   return (
     <Provider store={store}>
+
+    <ButtonAppBar />
+
+
     <Router>
       <div>
         <nav>
@@ -57,6 +64,7 @@ export default function App() {
         </Switch>
       </div>
     </Router>
+    <SimpleBottomNavigation />
     </Provider>
   );
 }
